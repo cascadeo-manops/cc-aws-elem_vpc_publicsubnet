@@ -11,4 +11,21 @@
 ## end
 ##
 
+coreo_aws_vpc_routetable "${CC-AWS-ELEM_VPC_PUBLICSUBNET_RTNAME}" do
+   action :sustain
+   vpc "${CC-AWS-ELEM_VPC_NAME}"
+   routes [ 
+               { :from => "0.0.0.0/0", :to => "${CC-AWS-ELEM_VPC_NAME}", :type => igw }
+         ]
+   number_of_tables 1
+end
+
+coreo_aws_vpc_subnet "${CC-AWS-ELEM_VPC_PUBLICSUBNET_NAME}" do
+   action :sustain
+   number_of_zones 3
+   route_table "${CC-AWS-ELEM_VPC_PUBLICSUBNET_RTNAME}" 
+   vpc "${CC-AWS-ELEM_VPC_NAME}"
+   map_public_ip_on_launch true
+end
+
 
