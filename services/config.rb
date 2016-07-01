@@ -11,20 +11,20 @@
 ## end
 ##
 
-coreo_aws_vpc_routetable "${CC-AWS-ELEM_VPC_PUBLICSUBNET_RTNAME}" do
+coreo_aws_vpc_routetable "${PUBLICSUBNET_RTNAME}" do
    action :sustain
-   vpc "${CC-AWS-ELEM_VPC_NAME}"
+   vpc "${VPC_NAME}"
    routes [ 
-               { :from => "0.0.0.0/0", :to => "${CC-AWS-ELEM_VPC_NAME}", :type => igw }
+               { :from => "0.0.0.0/0", :to => "${VPC_NAME}", :type => igw }
          ]
    number_of_tables 1
 end
 
-coreo_aws_vpc_subnet "${CC-AWS-ELEM_VPC_PUBLICSUBNET_NAME}" do
+coreo_aws_vpc_subnet "${PUBLICSUBNET_NAME}" do
    action :sustain
    number_of_zones 3
-   route_table "${CC-AWS-ELEM_VPC_PUBLICSUBNET_RTNAME}" 
-   vpc "${CC-AWS-ELEM_VPC_NAME}"
+   route_table "${PUBLICSUBNET_RTNAME}" 
+   vpc "${VPC_NAME}"
    map_public_ip_on_launch true
 end
 
